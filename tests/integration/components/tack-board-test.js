@@ -12,8 +12,8 @@ import {
 import hbs from 'htmlbars-inline-precompile';
 
 describeComponent(
-  'nav-bar',
-  'Integration: NavBarComponent', {
+  'tack-board',
+  'Integration: tackBoardComponent', {
     integration: true
   },
   function() {
