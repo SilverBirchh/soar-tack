@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="jumbotron vertical-center">
+    <div class="btn-group pull-right" role="group" >
+      <button type="button" class="btn btn-primary reset" {{action 'reset'}}>Reset</button>
+    </div>
+    <div class="row-container">
+      <div class="cell no-border" {{action 'select' 'top.left'}}></div>
+      <div class="cell no-border-top" {{action 'select' 'top.middle'}}></div>
+      <div class="cell no-border" {{action 'select' 'top.right'}}></div>
+    </div>
+    <div class="row-container">
+      <div class="cell no-border-left" {{action 'select' 'middle.left'}}></div>
+      <div class="cell no-border" {{action 'select' 'middle.middle'}}></div>
+      <div class="cell no-border-right" {{action 'select' 'middle.right'}}></div>
+    </div>
+    <div class="row-container">
+      <div class="cell no-border" {{action 'select' 'bottom.left'}}></div>
+      <div class="cell no-border-bottom" {{action 'select' 'bottom.middle'}}></div>
+      <div class="cell no-border" {{action 'select' 'bottom.right'}}></div>
+    </div>
+  </div>
+</div>
+<div class="mask hidden"></div>
+<div class="banner vertical-center hidden">
+  <h3>{{result}}</h3>
+  <button type="button" class="btn btn-primary reset" {{action 'reset'}}>Play Again</button>
+</div>

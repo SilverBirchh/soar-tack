@@ -1,0 +1,10 @@
+$cross: url("images/Red_Cross.svg");
+$circle: url("images/Blue_circle.svg");
+.cross {
+  background: transparent $cross center no-repeat;
+  background-size: 100px;
+}
+.circle {
+  background: transparent $circle center no-repeat;
+  background-size: 100px;
+}
