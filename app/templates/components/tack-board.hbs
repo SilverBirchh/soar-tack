@@ -1,6 +1,32 @@
 <div class="container">
+  <div class="row">
+    <div class="col-md-offset-1 col-md-5">
+      <h3>Player 1:
+        {{#power-select
+          options=shapes
+          selected=playerOne.shape
+          onchange=(action (mut playerOne.shape))
+          as |shape|
+        }}
+        {{shape}}
+        {{/power-select}}
+      </h3>
+    </div>
+    <div class="col-md-5">
+      <h3>Player 2:
+        {{#power-select
+          options=shapes
+          selected=playerTwo.shape
+          onchange=(action (mut playerTwo.shape))
+          as |shape|
+        }}
+        {{shape}}
+        {{/power-select}}
+      </h3>
+    </div>
+  </div>
   <div class="jumbotron vertical-center">
-    <div class="btn-group pull-right" role="group" >
+    <div class="btn-group pull-right" role="group">
       <button type="button" class="btn btn-primary reset" {{action 'reset'}}>Reset</button>
     </div>
     <div class="row-container">

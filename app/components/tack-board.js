@@ -7,9 +7,10 @@ export default Ember.Component.extend({
 	playerTwo: {
 		shape: 'cross'
 	},
+	shapes: ['circle', 'cross'],
 	isPlayerOnesGo: true,
   gameOver: false,
-  result: 'The winner is Circle',
+  result: null,
 	map: {
 		top: {
 			left: {
@@ -99,13 +100,13 @@ export default Ember.Component.extend({
     });
 
     let antiDiagCount = 0;
-    // Check diagonal oposite
+    // Check diagonal opposite
     ['top', 'middle', 'bottom'].forEach((row) => {
       ['right', 'left', 'middle'].forEach((cell) => {
         if (`${row}.${cell}` === 'top.right' || `${row}.${cell}` === 'middle.middle' || `${row}.${cell}` === 'bottom.left') {
           antiDiagCount += (this.get(`map.${row}.${cell}.shape`) === 'circle') ? 1 : 0;
           antiDiagCount += (this.get(`map.${row}.${cell}.shape`) === 'cross') ? -1 : 0;
-          if (antiDiagCount === 3 || diagCount === -3) {
+          if (antiDiagCount === 3 || antiDiagCount === -3) {
             return this.showWinner(this.get(`map.${row}.${cell}.shape`));
           }
       }
@@ -140,8 +141,8 @@ export default Ember.Component.extend({
 		this.set('isPlayerOnesGo', true);
     this.set('winner', null);
     this.set('gameOver', false);
-    $('.mask').toggleClass('hidden');
-    $('.banner').toggleClass('hidden');
+    this.get('result') ? $('.mask').toggleClass('hidden') && $('.banner').toggleClass('hidden') : null;
+		this.set('result', null);
 	},
 
   showWinner(winner) {
@@ -153,7 +154,6 @@ export default Ember.Component.extend({
     }
     $('.mask').toggleClass('hidden');
     $('.banner').toggleClass('hidden');
-    return;
   },
 
 	actions: {

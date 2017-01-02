@@ -7,3 +7,6 @@ html {
 @import "partials/_cell";
 @import "partials/_container";
 @import "partials/_shapes";
+@import 'ember-power-select/themes/material';
+@import "ember-power-select";
+@import "partials/_power-select"
