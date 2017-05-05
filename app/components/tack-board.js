@@ -165,7 +165,7 @@ export default Ember.Component.extend({
   },
 
   actions: {
-    select(pos) {
+    select: function(pos, event) {
       if (this.isTaken(pos)) {
         return;
       }
