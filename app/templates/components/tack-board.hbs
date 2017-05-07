@@ -1,55 +1,22 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-offset-1 col-md-5">
-      <h3>Player 1 (Score {{playerOne.score}}):
-        {{#power-select
-          disabled=disabled
-          options=shapes
-          selected=playerOne.shape
-          onchange=(action (mut playerOne.shape))
-          as |shape|
-        }}
-          {{shape}}
-        {{/power-select}}
-      </h3>
-    </div>
-    <div class="col-md-5">
-      <h3>Player 2 (Score {{playerTwo.score}}):
-        {{#power-select
-          options=shapes
-          disabled=disabled
-          selected=playerTwo.shape
-          onchange=(action (mut playerTwo.shape))
-          as |shape|
-        }}
-          {{shape}}
-        {{/power-select}}
-      </h3>
-    </div>
+<div class="jumbotron board">
+  <div class="btn-group pull-right" role="group">
+    <button type="button" class="btn btn-primary reset" {{action "reset"}}>Reset</button>
   </div>
-  <div class="jumbotron board">
-    <div class="btn-group pull-right" role="group">
-      <button type="button" class="btn btn-primary reset" {{action 'reset'}}>Reset</button>
-    </div>
-    <div class="row-container">
-      <div class="cell no-border" onclick={{action 'select' 'top.left'}}></div>
-      <div class="cell no-border-top" onclick={{action 'select' 'top.middle'}}></div>
-      <div class="cell no-border" onclick={{action 'select' 'top.right'}}></div>
-    </div>
-    <div class="row-container">
-      <div class="cell no-border-left" onclick={{action 'select' 'middle.left'}}></div>
-      <div class="cell no-border" onclick={{action 'select' 'middle.middle'}}></div>
-      <div class="cell no-border-right" onclick={{action 'select' 'middle.right'}}></div>
-    </div>
-    <div class="row-container">
-      <div class="cell no-border" onclick={{action 'select' 'bottom.left'}}></div>
-      <div class="cell no-border-bottom" onclick={{action 'select' 'bottom.middle'}}></div>
-      <div class="cell no-border" onclick={{action 'select' 'bottom.right'}}></div>
-    </div>
+
+  <div class="row-container">
+    {{ tack-square value=square[0] select="select" }}
+    {{ tack-square value=square[1] select="select" }}
+    {{ tack-square value=square[2] select="select" }}
   </div>
-</div>
-<div class="mask hidden"></div>
-<div class="banner vertical-center hidden">
-  <h3>{{result}}</h3>
-  <button type="button" class="btn btn-primary reset" {{action 'reset'}}>Play Again</button>
+  <div class="row-container">
+    {{ tack-square value=square[3] select="select" }}
+    {{ tack-square value=square[4] select="select" }}
+    {{ tack-square value=square[5] select="select" }}
+  </div>
+  <div class="row-container">
+    {{ tack-square value=square[6] select="select" }}
+    {{ tack-square value=square[7] select="select" }}
+    {{ tack-square value=square[9] select="select" }}
+  </div>
+
 </div>
