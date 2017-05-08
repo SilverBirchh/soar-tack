@@ -16,12 +16,19 @@ export default Ember.Component.extend({
   shapes: ['circle', 'cross', 'dino'],
 
   isPlayerOnesGo: true,
-  disabled: false,
+  disabled: false, //TODO: make this computed
   result: null,
   squares: Ember.A(Array(9).fill(null)),
 
-  checkWinner() {
+  checkDraw() {
+    const squares = this.get('squares');
+    if (squares.includes(null)) {
+      return false;
+    }
+    return true;
+  },
 
+  checkWinner() {
     const rows = [
       [0, 1, 2],
       [3, 4, 5],
@@ -32,48 +39,57 @@ export default Ember.Component.extend({
       [0, 4, 8],
       [2, 4, 6]
     ];
-    rows.forEach((rows, index) => {
-       // TODO: Implement forEach.
-    })
-    for (let i = 0; i < lines.length; i++) {
-      const [a, b, c] = lines[i];
+    for (let i = 0; i < rows.length; i++) {
+      const [a, b, c] = rows[i];
+      const squares = this.get('squares');
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
         return squares[a];
       }
     }
-    return null;
-
   },
 
-  showWinner(winner) {
-    //TODO: Implement winner
-    // if (result === 'draw') {
-    //   this.set('result', 'Too Bad. It was a draw!');
-    // } else {
-    //   this.set('result', `The winner was ${winner}! Well done!`);
-    //   let player = this.get('playerOne.shape') === winner ? 'playerOne' : 'playerTwo';
-    //   let score = parseInt(this.get(`${player}.score`));
-    //   this.set(`${player}.score`, ++score);
+  checkResult() {
+    const winner = this.checkWinner();
+     if (this.checkWinner()) {
+       let player = this.get('playerOne.shape') === winner ?
+                     'playerOne' : 'playerTwo';
+       let score = parseInt(this.get(`${player}.score`));
+       this.set(`${player}.score`, ++score);
+       this.set('result', `The winner was ${this.get(`${player}.name`)}! Well done!`);
+       return;
+    }
+    else if (this.checkDraw()) {
+      this.set('result', 'Too Bad. It was a draw!');
+      return;
+    }
+    else {
+      return;
+    }
   },
 
   actions: {
     select(squareId) {
-      if (/*this.checkWinner() || */  this.get('squares')[squareId]) {
+      this.set('disabled', true);
+      if (this.get('squares')[squareId]) {
         return;
       }
+
       let shape = this.get('isPlayerOnesGo') ? this.get('playerOne.shape') : this.get('playerTwo.shape');
-      this.toggleProperty('isPlayerOnesGo');
       let squares = this.get('squares').slice();
       squares[squareId] = shape;
+      this.toggleProperty('isPlayerOnesGo');
       this.set('squares', squares);
-      // this.checkWinner();
+
+      this.checkResult();
     },
 
     reset() {
-      this.set('squares', Ember.A(Array(9).fill(null)))
-      this.set('isPlayerOnesGo', true);
-      this.set('disabled', false);
-      this.set('result', null);
+      this.setProperties({
+        isPlayerOnesGo: true,
+        disabled: false,
+        result: null,
+        squares: Ember.A(Array(9).fill(null))
+      });
     }
   }
 });
