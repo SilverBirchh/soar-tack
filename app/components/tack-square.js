@@ -4,6 +4,7 @@ export default Ember.Component.extend({
   classNames: ['cell'],
   classNameBindings: ['value'],
 
+  value: null,
 
   number: 0,
 

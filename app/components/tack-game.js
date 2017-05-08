@@ -58,9 +58,14 @@ export default Ember.Component.extend({
 
   actions: {
     select(squareId) {
+      if (/*this.checkWinner() || */  this.get('squares')[squareId]) {
+        return;
+      }
       let shape = this.get('isPlayerOnesGo') ? this.get('playerOne.shape') : this.get('playerTwo.shape');
       this.toggleProperty('isPlayerOnesGo');
-      this.get('squares')[squareId] = shape;
+      let squares = this.get('squares').slice();
+      squares[squareId] = shape;
+      this.set('squares', squares);
       // this.checkWinner();
     },
 
