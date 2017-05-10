@@ -13,6 +13,11 @@ export default Ember.Component.extend({
         score: '0'
       },
 
+      nextGo: Ember.computed('isPlayerOnesGo', 'playerOne.name', function() {
+        const nextPlayer = this.get('isPlayerOnesGo') ? this.get('playerOne.name') : this.get('playerTwo.name');
+        return `${nextPlayer} is next`
+      }),
+
       shapes: ['circle', 'cross', 'dino'],
 
       isPlayerOnesGo: true,
