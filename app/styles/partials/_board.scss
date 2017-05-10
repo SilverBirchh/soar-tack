@@ -1,0 +1,15 @@
+.board {
+  width: 590px;
+  position: relative;
+  display: block;
+  margin: 0 auto;
+}
+
+.board_next-player {
+  text-align: center;
+  margin: 5px;
+}
+
+.board_reset {
+  top: -25px;
+}

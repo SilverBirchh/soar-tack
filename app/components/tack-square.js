@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNames: ['cell'],
+  classNames: ['square_cell'],
   classNameBindings: ['value'],
 
   value: null,
