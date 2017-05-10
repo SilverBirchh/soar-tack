@@ -17,21 +17,21 @@ export default Ember.Component.extend({
 
       isPlayerOnesGo: true,
 
-      disabled: false, //TODO: make this computed
+      disabled: false,
 
       result: null,
 
       squares: Ember.A(new Array(9).fill(null)),
 
-      wasADraw: Ember.computed('squares.[]', function() {
+      wasADraw() {
         const squares = this.get('squares');
         if (squares.includes(null)) {
           return false;
         }
         return true;
-      }),
+      },
 
-      winner: Ember.computed('squares.[]', function() {
+      winner() {
         const rows = [
           [0, 1, 2],
           [3, 4, 5],
@@ -49,26 +49,20 @@ export default Ember.Component.extend({
             return squares[a];
           }
         }
-      }),
+      },
 
-      checkResult: Ember.observer('winner', 'wasADraw', function() {
-            if (this.get('winner')) {
-              let player = this.get('playerOne.shape') === this.get('winner') ?
+      checkResult() {
+            if (this.winner()) {
+              let player = this.get('playerOne.shape') === this.winner() ?
                 'playerOne' : 'playerTwo';
               let score = parseInt(this.get(`${player}.score`));
               this.set(`${player}.score`, ++score);
               this.set('result', `The winner was ${this.get(`${player}.name`)}! Well done!`);
    }
 
-   else if (this.get('wasADraw')) {
+   else if (this.wasADraw()) {
      this.set('result', 'Too Bad. It was a draw!');
    }
- }),
-
- init() {
-   this._super(...arguments);
-   this.get('winner');
-   this.get('wasADraw');
  },
 
   actions: {
@@ -83,6 +77,8 @@ export default Ember.Component.extend({
       squares[squareId] = shape;
       this.toggleProperty('isPlayerOnesGo');
       this.set('squares', Ember.A(squares));
+
+      this.checkResult();
     },
 
     reset() {
