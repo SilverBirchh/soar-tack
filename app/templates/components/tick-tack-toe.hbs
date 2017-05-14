@@ -1,3 +1,5 @@
-{{#link-to 'play' tagName='a' }} Play {{/link-to}}
-{{#link-to 'results' tagName='a' }} Results {{/link-to}}
+<ul class="nav nav-pills nav-justified">
+  {{#link-to 'play' tagName='li' role='presentation'}}<a href=""> Play </a>{{/link-to}}
+  {{#link-to 'results' tagName='li' role='presentation' }}<a href=""> Results </a>{{/link-to}}
+</ul>
 {{outlet}}
