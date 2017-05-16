@@ -13,9 +13,13 @@ export default Ember.Component.extend({
     score: '0'
   },
 
-  nextGo: Ember.computed('isPlayerOnesGo', 'playerOne.name', function() {
+  nextGo: Ember.computed('isPlayerOnesGo', 'playerOne.name', 'playerTwo.name', function() {
     const nextPlayer = this.get('isPlayerOnesGo') ? this.get('playerOne.name') : this.get('playerTwo.name');
     return `${nextPlayer} is next`
+  }),
+
+  forceReset: Ember.observer('playerOne.name', 'playerTwo.name', function() {
+    this.reset(true);
   }),
 
   shapes: ['circle', 'cross', 'dino'],
@@ -101,6 +105,17 @@ export default Ember.Component.extend({
     this.sendAction('editResult', result);
   },
 
+  reset(resetScore) {
+    this.setProperties({
+      isPlayerOnesGo: true,
+      disabled: false,
+      result: null,
+      squares: Ember.A(new Array(9).fill(null)),
+    });
+    this.set('playerOne.score', resetScore ? 0 : this.get('playerOne.score'));
+    this.set('playerTwo.score', resetScore ? 0 : this.get('playerTwo.score'));
+  },
+
   actions: {
     select(squareId) {
       this.set('disabled', true);
@@ -117,13 +132,8 @@ export default Ember.Component.extend({
       this.checkResult();
     },
 
-    reset() {
-      this.setProperties({
-        isPlayerOnesGo: true,
-        disabled: false,
-        result: null,
-        squares: Ember.A(new Array(9).fill(null)),
-      });
+    reset(isHardReset) {
+      this.reset(isHardReset);
     },
   }
 });
