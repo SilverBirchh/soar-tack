@@ -56,26 +56,49 @@ export default Ember.Component.extend({
     }
   },
 
+  shouldSaveRecord: Ember.computed('playerOne.score', 'playerTwo.score', function() {
+    const playerOne = this.get('playerOne');
+    const playerTwo = this.get('playerTwo');
+    if (playerOne.score > 1 || playerTwo.score > 1) {
+      return false;
+    }
+    return true;
+  }),
+
   checkResult() {
-    this.sendAction('saveResult');
-    this.sendAction('editResult');
     if (this.winner()) {
       let player = this.get('playerOne.shape') === this.winner() ?
         'playerOne' : 'playerTwo';
       let score = parseInt(this.get(`${player}.score`));
       this.set(`${player}.score`, ++score);
       this.set('result', `The winner was ${this.get(`${player}.name`)}! Well done!`);
+
+      this.get('shouldSaveRecord') ? this.save() : this.edit();
     } else if (this.wasADraw()) {
       this.set('result', 'Too Bad. It was a draw!');
     }
   },
 
-  saveResult() {
-    this.sendAction('saveResult');
+  save() {
+    const playerOne = this.get('playerOne');
+    const playerTwo = this.get('playerTwo');
+    const result = {
+      playerOne,
+      playerTwo
+    }
+
+    this.sendAction('saveResult', result);
   },
 
-  editResult() {
-    this.sendAction('editResult');
+  edit() {
+    const playerOne = this.get('playerOne');
+    const playerTwo = this.get('playerTwo');
+    const result = {
+      playerOne,
+      playerTwo
+    }
+
+    this.sendAction('editResult', result);
   },
 
   actions: {
