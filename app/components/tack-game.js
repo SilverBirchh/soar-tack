@@ -22,8 +22,6 @@ export default Ember.Component.extend({
     this.reset(true);
   }),
 
-  shapes: ['circle', 'cross', 'dino'],
-
   isPlayerOnesGo: true,
 
   disabled: false,
@@ -134,6 +132,10 @@ export default Ember.Component.extend({
 
     reset(isHardReset) {
       this.reset(isHardReset);
+    },
+
+    switchPlayerOne() {
+      this.toggleProperty('isPlayerOnesGo');
     },
   }
 });

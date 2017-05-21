@@ -1,30 +1,19 @@
 <div class="row">
   <div class="col-md-offset-1 col-md-5">
     {{input type="text" placeholder="Player one name" value=playerOne.name required=true class="players_name" classBinding="disabled:hidden"}}
-    <h3>{{playerOne.name}} (Score {{playerOne.score}}):
-      {{#power-select
-        disabled=disabled
-        options=shapes
-        selected=playerOne.shape
-        onchange=(action (mut playerOne.shape))
-        as |shape|
-      }}
-        {{shape}}
-      {{/power-select}}
+    <h3>{{playerOne.name}} (Score {{playerOne.score}}): Circle
     </h3>
   </div>
+
+  <div class="col-md-1">
+    <button {{ action "switchPlayerOne" }}type="button" class="btn btn-default {{if disabled "hidden"}}" aria-label="Left Align">
+      <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+    </button>
+  </div>
+
   <div class="col-md-5">
     {{input type="text" placeholder="Player two name" value=playerTwo.name required=true class="players_name" classBinding="disabled:hidden"}}
-    <h3>{{playerTwo.name}} (Score {{playerTwo.score}}):
-      {{#power-select
-        options=shapes
-        disabled=disabled
-        selected=playerTwo.shape
-        onchange=(action (mut playerTwo.shape))
-        as |shape|
-      }}
-        {{shape}}
-      {{/power-select}}
+    <h3>{{playerTwo.name}} (Score {{playerTwo.score}}): Cross
     </h3>
   </div>
 </div>
