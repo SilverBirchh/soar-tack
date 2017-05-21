@@ -2,8 +2,14 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   id: null,
+
   model: function() {
     return this.store.findAll('results');
+  },
+
+  deactivate: function() {
+    this._super();
+    this.set('id', null);
   },
 
   actions: {

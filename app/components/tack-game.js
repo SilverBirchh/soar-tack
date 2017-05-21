@@ -61,7 +61,7 @@ export default Ember.Component.extend({
   shouldSaveRecord: Ember.computed('playerOne.score', 'playerTwo.score', function() {
     const playerOne = this.get('playerOne');
     const playerTwo = this.get('playerTwo');
-    if (playerOne.score > 1 || playerTwo.score > 1) {
+    if ((playerOne.score > 1 || playerTwo.score > 1) || (parseInt(playerOne.score) && parseInt(playerTwo.score))) {
       return false;
     }
     return true;
@@ -112,6 +112,11 @@ export default Ember.Component.extend({
     });
     this.set('playerOne.score', resetScore ? 0 : this.get('playerOne.score'));
     this.set('playerTwo.score', resetScore ? 0 : this.get('playerTwo.score'));
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+    this.reset(true);
   },
 
   actions: {
